@@ -4,7 +4,7 @@ provider "aws" {
   default_tags {
     tags = {
       ManagedBy = "Terraform"
-      Repo      = "your-org/your-repo"
+      Repo      = "falconcrwd/terraform-aws-s3"
     }
   }
 }
