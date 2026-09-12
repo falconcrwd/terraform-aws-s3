@@ -1,0 +1,26 @@
+name: PR Checks
+
+# Runs on every PR targeting main. Delegates the actual work to the reusable
+# tf-lint workflow so other workflows can call the same lint pipeline later.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "**/*.tf"
+      - ".tflint.hcl"
+      - ".github/workflows/pr-checks.yaml"
+      - ".github/workflows/tf-lint.yaml"
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: lint
+    uses: ./.github/workflows/tf-lint.yaml
+    # Inputs are optional — defaults match the versions used in nsg.yaml.
+    with:
+      terraform_version: "1.15.8"
+      tflint_version: "latest"
+      working_directory: "."

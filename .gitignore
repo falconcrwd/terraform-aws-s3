@@ -1,0 +1,23 @@
+# Terraform
+.terraform/
+# .terraform.lock.hcl is committed so provider versions are pinned across
+# contributors and CI. Remove that line from here (or delete this comment)
+# only if you deliberately want floating provider patch versions.
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+crash.*.log
+
+# Plan artifacts produced by CI or local runs
+tfplan
+plan.txt
+
+# TFLint runtime state (config file .tflint.hcl IS committed)
+.tflint.d/
+
+# Editor / OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp

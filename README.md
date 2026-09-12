@@ -41,7 +41,65 @@ Use the following trust policy
 }
 ```
 
-Assign relevant permissions for S3 bucket access (tfstate) and security group, then create the role
+Assign relevant permissions for S3 bucket access (tfstate) and security group, then create the role. A sample permissions policy that allows access to the S3 bucket for tfstate operations and also Security Group operations is below
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "TFStateBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::tfstate2508"
+        },
+        {
+            "Sid": "TFStateObjects",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": "arn:aws:s3:::tfstate2508/*"
+        },
+        {
+            "Sid": "SecurityGroupMgmt",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSecurityGroupRules",
+                "ec2:DescribeTags",
+                "ec2:CreateSecurityGroup",
+                "ec2:DeleteSecurityGroup",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:RevokeSecurityGroupEgress",
+                "ec2:ModifySecurityGroupRules",
+                "ec2:CreateTags",
+                "ec2:DeleteTags"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "EC2Read",
+            "Effect": "Allow",
+            "Action": "ec2:Describe*",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "us-east-1"
+                }
+            }
+        }
+    ]
+}
+```
 
 
 ## Step 3 - get the role ARN in step 2 and create a repository level secret
