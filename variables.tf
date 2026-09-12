@@ -15,3 +15,9 @@ variable "allowed_ingress_cidrs" {
   type        = list(string)
   default     = ["10.0.0.0/8"]
 }
+
+variable "unused_thing" {
+    description = "Only here to make tflint angry"
+    type        = string
+    default     = "hi"
+}
