@@ -1,0 +1,32 @@
+metadata:
+  name: "AWS resources must be tagged environment=demo"
+  id: "CKV_LOCAL_001"
+  category: "GENERAL_SECURITY"
+  severity: "HIGH"
+
+scope:
+  provider: aws
+
+definition:
+  and:
+    # 1. Tag key must exist on the resource
+    - cond_type: attribute
+      resource_types:
+        - aws_security_group
+        - aws_vpc_security_group_ingress_rule
+        - aws_vpc_security_group_egress_rule
+        # Add other resource types here as the repo grows, e.g.:
+        # - aws_s3_bucket
+        # - aws_instance
+      attribute: "tags.environment"
+      operator: exists
+
+    # 2. Tag value must equal "demo"
+    - cond_type: attribute
+      resource_types:
+        - aws_security_group
+        - aws_vpc_security_group_ingress_rule
+        - aws_vpc_security_group_egress_rule
+      attribute: "tags.environment"
+      operator: equals
+      value: "demo"

@@ -86,6 +86,8 @@ jobs:
           quiet: true            # only print failed checks
           soft_fail: false       # non-zero exit on any failed check → check goes red
           output_format: cli
+          # Load repo-local custom policies (YAML rules under .checkov/policies).
+          external_checks_dirs: .checkov/policies
           # Comma-separated Checkov check IDs to ignore. Example:
           #   skip_check: CKV_AWS_23,CKV2_AWS_5
           # Prefer this over disabling whole categories.
