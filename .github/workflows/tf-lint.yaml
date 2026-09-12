@@ -70,3 +70,23 @@ jobs:
 
       - name: TFLint
         run: tflint --format compact --recursive
+
+  checkov:
+    name: checkov
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: ${{ inputs.working_directory }}
+          framework: terraform
+          quiet: true            # only print failed checks
+          soft_fail: false       # non-zero exit on any failed check → check goes red
+          output_format: cli
+          # Comma-separated Checkov check IDs to ignore. Example:
+          #   skip_check: CKV_AWS_23,CKV2_AWS_5
+          # Prefer this over disabling whole categories.
+          skip_check: ""
