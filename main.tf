@@ -36,3 +36,8 @@ resource "aws_vpc_security_group_egress_rule" "all_ipv4" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }
+
+resource "aws_instance" "bad" {
+  ami           = "ami-1234"
+  instance_type = "t9.mega" # ← not a real instance type
+}
