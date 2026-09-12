@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "sg_name" {
   description = "Name of the security group"
   type        = string
-  default     = "test-nsg"
+  default     = "test1-nsg"
 }
 
 variable "allowed_ingress_cidrs" {
